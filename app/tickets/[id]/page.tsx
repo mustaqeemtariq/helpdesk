@@ -15,7 +15,7 @@ export const revalidate = 60
 const TicketDetails = async ({ params }: { params: { id: string } }) => {
 	const ticketDetail = await ticketService.getTicketById(params.id)
 
-	if (!ticketDetail.id) {
+	if (!ticketDetail) {
 		notFound()
 	}
 
