@@ -1,6 +1,9 @@
 import clsx from 'clsx'
 
 import ticketService from '@/services/ticket-service'
+import { notFound } from 'next/navigation'
+
+export const dynamicParams = false
 
 export const generateStaticParams = async () => {
 	const tickets = await ticketService.getAllTickets()
@@ -11,6 +14,10 @@ export const revalidate = 60
 
 const TicketDetails = async ({ params }: { params: { id: string } }) => {
 	const ticketDetail = await ticketService.getTicketById(params.id)
+
+	if (!ticketDetail.id) {
+		notFound()
+	}
 
 	return (
 		<main>
